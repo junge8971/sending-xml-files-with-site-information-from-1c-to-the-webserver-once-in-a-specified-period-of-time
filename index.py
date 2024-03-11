@@ -1,4 +1,5 @@
 from os import getcwd, listdir
+from time import sleep
 
 from loguru import logger
 from requests import post
@@ -8,6 +9,9 @@ logger.debug(f"{PATH_TO_WORKING_ENV=}")
 
 LIST_OF_FILES = listdir(PATH_TO_WORKING_ENV)
 logger.debug(f"{LIST_OF_FILES=}")
+
+URL = ""
+SECURITY_KEY = ""
 
 
 def get_full_files_names_from_working_env() -> dict | None:
@@ -38,14 +42,15 @@ if __name__ == "__main__":
             offers_file = open(file=files_for_work["offers"], mode="rb")
 
             post(
-                url="https//url",
+                url=URL,
                 files={
                     "import.xml": import_file,
                     "offers.xml": offers_file,
                 },
+                headers={"security_key": SECURITY_KEY},
             )
 
             import_file.close()
             offers_file.close()
 
-        break
+        sleep(3600 * 1.5)
